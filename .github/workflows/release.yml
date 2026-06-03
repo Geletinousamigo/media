@@ -70,7 +70,7 @@ jobs:
       - name: Build release variant generation
         run: |
           DEMO="${{ inputs.demo_name || 'demos:compose' }}"
-          ./gradlew :$DEMO:assembleRelease
+          ./gradlew :$DEMO:assembleDebug
 
       - name: Create Release
         id: create_release
