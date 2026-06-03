@@ -11,18 +11,17 @@ on:
         description: "Demo module"
         type: choice
         options:
-          - demos:cast
-          - demos:compose
-          - demos:composition
-          - demos:effect
-          - demos:gl
-          - demos:main
-          - demos:session
-          - demos:session_service
-          - demos:session_automotive
-          - demos:shortform
-          - demos:surface
-          - demos:transformer
+          - demo
+          - demo-cast
+          - demo-compose
+          - demo-composition
+          - demo-effect
+          - demo-gl
+          - demo-session
+          - demo-session-automotive
+          - demo-shortform
+          - demo-surface
+          - demo-transformer
   push:
     tags:
       - 'v*'
@@ -60,6 +59,10 @@ jobs:
 
       - name: Accept licenses
         run: yes | sdkmanager --licenses || true
+
+      - name: Show demo projects
+        run: |
+          ./gradlew projects | grep "Project ':demo"
 
       - name: Build release variant generation
         run: |
