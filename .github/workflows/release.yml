@@ -11,18 +11,18 @@ on:
         description: "Demo module"
         type: choice
         options:
-          - :cast
-          - :compose
-          - :composition
-          - :effect
-          - :gl
-          - :main
-          - :session
-          - :session_service
-          - :session_automotive
-          - :shortform
-          - :surface
-          - :transformer
+          - :demo-cast
+          - :demo-compose
+          - :demo-composition
+          - :demo-effect
+          - :demo-gl
+          - :demo-main
+          - :demo-session
+          - :demo-session-service
+          - :demo-session-automotive
+          - :demo-shortform
+          - :demo-surface
+          - :demo-transformer
   push:
     tags:
       - 'v*'
@@ -63,7 +63,7 @@ jobs:
 
       - name: Build release variant generation
         run: |
-          DEMO="${{ inputs.demo_name || ':compose' }}"
+          DEMO="${{ inputs.demo_name || ':demo-compose' }}"
           ./gradlew :$DEMO:assembleRelease
 
       - name: Create Release
