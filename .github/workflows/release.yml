@@ -1,5 +1,8 @@
 name: GitHub Release with APKs
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
     inputs:
@@ -8,21 +11,20 @@ on:
         required: true
         type: string
       demo_name:
-        description: "Demo module"
+        description: "Demo module (ex: demo-compose)"
         type: choice
         options:
-          - :demo-cast
-          - :demo-compose
-          - :demo-composition
-          - :demo-effect
-          - :demo-gl
-          - :demo-main
-          - :demo-session
-          - :demo-session-service
-          - :demo-session-automotive
-          - :demo-shortform
-          - :demo-surface
-          - :demo-transformer
+          - demo
+          - demo-cast
+          - demo-compose
+          - demo-composition
+          - demo-effect
+          - demo-gl
+          - demo-session
+          - demo-session-automotive
+          - demo-shortform
+          - demo-surface
+          - demo-transformer
   push:
     tags:
       - 'v*'
@@ -61,11 +63,13 @@ jobs:
       - name: Accept licenses
         run: yes | sdkmanager --licenses || true
 
+      - name: Show demo projects
+        run: |
+          ./gradlew projects | grep "Project ':demo"
       - name: Build release variant generation
         run: |
-          DEMO="${{ inputs.demo_name || ':demo-compose' }}"
-          ./gradlew :$DEMO:assembleRelease
-
+          DEMO="${{ inputs.demo_name || 'demos:compose' }}"
+          ./gradlew :$DEMO:assembleDebug
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
